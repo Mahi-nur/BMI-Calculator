@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  body{
+    background-color:#292929;
+    color: white;
+  }
+  span{
+    color: red;
+  }
+   .warper{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 15px;
+    background-color: black;
+    border-radius: 5px;
+    box-shadow: rgb(137, 154, 173)0px 20px 30px -8px;
+    line-height: 30px;
+    margin-top: -100px;
+   }
+   input{
+    width: 90%;
+    padding: 5px;
+    outline: none;
+
+   }
+   #btn{
+    margin-top: 15px;
+    margin-left: 5px;
+    
+   }
+   button{
+    cursor: pointer;
+    background: #000;
+    color: white;
+    border: 2px solid white;
+    padding:5px;
+    border-radius: 5px;
+    box-shadow: rgb(248, 252, 255)0px 20px 60px;
+
+   }
+     
+   #output{
+      
+      margin-top: 5px3;
+      text-align: center;
+   }
+   table,th,td,tr{
+            border: 1px solid black;
+        }
+        th{
+            background-color: rgb(93, 187, 204);
+        }
+
+    table{
+      margin-top: 400px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+    }  
+    h1{
+      text-align: center;
+      
+        
+    }  
+  #demo{
+   text-align: center;
+  
+  }
+  #height-error{
+   font-size: 10px;
+  }
+  #width-error{
+   font-size: 10px;
+  }
+  </style>
+</head>
+<body>
+    <h1>BMI Calculator</h1>
+    <p id="demo">BMI (Body Mass Index)<br> মানবদেহের গড়ন ও চর্বির একটি সূচক নির্দেশ করে </p>
+  <div class="warper">
+<p> দেহের ওজন &nbsp;   (কেজি)  :
+      <input type="text" id="width" ><br> <span id="width-error"></span>
+   </p>  
+
+      <p>দেহের উচ্চতা &nbsp;  (মিটার) :
+        <input type="text" id="height" ><br> <span id="height-error"></span>
+     </p> 
+     
+    
+   <button id="btn">ক্যালকুলেট</button>
+
+   <p id="output"></p>
+  
+  </div>
+
+  
+ <script>
+   let button=document.getElementById("btn");
+
+button.addEventListener("click",()=>{
+   const height= document.getElementById('height').value;
+   const width= document.getElementById('width').value;
+   const result=document.getElementById("output");
+   let height_status=false,width_status=false;
+   
+    if(height===""|| isNaN(height) || (height <=0)){
+       document.getElementById("height-error").innerHTML="আপনার কোথাও ভুল হচ্ছে "
+    }else{
+       document.getElementById("height-error").innerHTML=" ";
+       height_status=true;
+    }
+    if(width===""|| isNaN(width) || (width <=0)){
+       document.getElementById("width-error").innerHTML=" আপনার কোথাও ভুল হচ্ছে "
+    }else{
+       document.getElementById("width-error").innerHTML="";
+       width_status=true;
+       
+    }
+        if(height_status && width_status){
+           const bmi=  (width/(height**2)).toFixed(1)
+           if(bmi< 18.5){
+               result.innerHTML= "BMI = "+bmi+"<br><hr><br> শরিরের ওজন কম । পরিমিত খাদ্য গ্রহন করে ওজন বাড়াতে হবে "
+           }
+           else if(bmi >=18.6 && bmi<24.9){
+               result.innerHTML= "BMI = "+bmi+"<br><hr> <br>সুস্বাস্থ্যের আদর্শ মান ।"
+           }
+           else if(bmi >=25 && bmi <29.9){
+            result.innerHTML= "BMI = "+bmi+"<br><hr><br> শরীরের ওজন অতিরিক্ত । ব্যায়াম করে ওজন কমানো প্রয়োজন "
+           }
+            else if(bmi >=30 && bmi <34.9){
+               result.innerHTML="BMI = "+bmi+"<br><hr><br> মোটা হওয়ার প্রথম স্থর । বেছে খাদ্য গ্রহণ ও ব্যায়াম করা প্রয়োজন "
+            }
+            else if(bmi >=35 && bmi <39.9){
+               result.innerHTML="BMI = "+bmi+"<br><hr><br> মোটা হওয়ার দ্বিতীয় স্তর । পরিমিত খাদ্য গ্রহণ ও ব্যায়াম করা প্রয়োজন ।"
+            }
+            else if(bmi >40){
+               result.innerHTML="BMI = "+bmi+"<br><hr><br> অতিরিক্ত মোটাত্ব । মৃত্যুঝুঁকির  আশঙ্কা । ডাক্তরের পরামার্শ প্রয়োজন ";
+               result.style.color="red"
+            }
+            else{
+               result.innerHTML="BMI = "+bmi+"<br><br>  অতিরিক্ত মোটাত্ব । মৃত্যুযঝুঁকির  আশঙ্কা । ডাক্তরের পরামার্শ প্রয়োজন"
+            }
+        }
+        else{
+           alert("অনুগ্রহ করে সঠিক তথ্য দিন");
+        
+        }
+
+})
+
+ 
+ </script>
+
+ 
+ 
+ 
+</body>
+</html>
